@@ -10,18 +10,48 @@
 
 <body>
     <div class="w-full bg-zinc-900 ">
-        <div class="parent relative top-0 left-0 w-full h-[700vh] ">
+        <div class="parent relative top-0 left-0 w-full h-[700vh]">
             <div class="w-full h-screen top-0 left-0 sticky  ">
-                <canvas id="frame" class=" w-full h-screen">
-
-                </canvas>
+                <canvas id="frame" class=" w-full h-screen"></canvas>
             </div>
         </div>
     </div>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        const frames = {
+            currentIndex: 0,
+            maxIndex: 382
+        }
+        let Images = [];
+        let imageLoaded = 0;
+        function preLoadImages() {
+            for (var i = 1; i <= frames.maxIndex; i++) {
+                const img = new Image();
+                const imageUrl = `./Frames/frame_${i.toString().padStart(4, "0")}.jpeg`;
+                img.src = imageUrl;
+                img.onload =
+                    () => {
+                        imageLoaded++;
+                        // console.log(imageLoaded)
+                        if (imageLoaded == frames.maxIndex) {
+                            // console.log("all images were loaded")
+                            LoadImage(frames.currentIndex);
+                        }
+                        Images.push(img)
+
+                    }
+            }
+        }
+        preLoadImages();
+
+
+    </script>
 </body>
 
 </html>
